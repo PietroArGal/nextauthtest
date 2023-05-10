@@ -99,7 +99,7 @@ export const AuthForm = () => {
     return (
         <div
             className="
-        mt-8
+        mt-7
         sm:mx-auto
         sm:w-full
         sm:max-w-md
