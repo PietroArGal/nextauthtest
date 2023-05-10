@@ -3,7 +3,7 @@
 import axios from "axios";
 import { signIn, useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
-import { BsGithub, BsGoogle } from 'react-icons/bs';
+import { BsFacebook, BsGoogle } from 'react-icons/bs';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from "next/navigation";
 
@@ -148,29 +148,38 @@ export const AuthForm = () => {
                     </div>
                 </form>
 
-                <div className="mt-6">
-                    <div className="relative">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-gray-300" />
+                {variant === 'LOGIN' && (
+
+                    <div className="mt-6">
+                        <div className="relative">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-gray-300" />
+                            </div>
+                            <div className="relative flex justify-center text-sm">
+                                <span className="bg-white px-2 text-gray-500">
+                                    Continua con:
+                                </span>
+                            </div>
                         </div>
-                        <div className="relative flex justify-center text-sm">
-                            <span className="bg-white px-2 text-gray-500">
-                                Continua con
-                            </span>
+
+
+                        <div className="mt-6 flex gap-2">
+
+                            <AuthSocialButton
+                                icon={BsFacebook}
+                                onClick={() => socialAction('facebook')}
+                            />
+                            <AuthSocialButton
+                                icon={BsGoogle}
+                                onClick={() => socialAction('google')}
+                            />
+
                         </div>
+
+
                     </div>
 
-                    <div className="mt-6 flex gap-2">
-                        <AuthSocialButton
-                            icon={BsGithub}
-                            onClick={() => socialAction('github')}
-                        />
-                        <AuthSocialButton
-                            icon={BsGoogle}
-                            onClick={() => socialAction('google')}
-                        />
-                    </div>
-                </div>
+                )}
 
                 <div
                     className="

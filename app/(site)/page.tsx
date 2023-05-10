@@ -33,7 +33,7 @@ export default function Home() {
             text-gray-900
           "
         >
-          Inicia Sesion
+          Iniciar Sesion
         </h2>
       </div>
       <AuthForm />
