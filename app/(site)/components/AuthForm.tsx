@@ -17,8 +17,16 @@ type Variant = 'LOGIN' | 'REGISTER';
 
 export const AuthForm = () => {
 
+    const session = useSession();
+    const router = useRouter();
     const [variant, setVariant] = useState<Variant>('LOGIN');
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (session?.status === 'authenticated') {
+            router.push('/users')
+        }
+    }, [session?.status, router]);
 
     const toggleVariant = useCallback(() => {
         if (variant === 'LOGIN') {
@@ -47,6 +55,7 @@ export const AuthForm = () => {
 
         if (variant === 'REGISTER') {
             axios.post('/api/register', data)
+                .then(() => signIn('credentials', data))
                 .catch(() => toast.error('Ocurrio un error!'))
                 .finally(() => setIsLoading(false))
         }
@@ -58,11 +67,12 @@ export const AuthForm = () => {
             })
                 .then((callback) => {
                     if (callback?.error) {
-                        toast.error('Invalid credentials!');
+                        toast.error('Credenciales Invalidas');
                     }
 
                     if (callback?.ok && !callback?.error) {
-                        toast.success('Ingresaste!')
+                        toast.success('Bienvenido')
+                        router.push('/users')
                     }
                 })
                 .finally(() => setIsLoading(false))
