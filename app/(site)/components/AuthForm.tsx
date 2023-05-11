@@ -1,16 +1,21 @@
 'use client';
 
+// Importaciones dependencias Next / React
 import axios from "axios";
-import { signIn, useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
 import { BsFacebook, BsGoogle } from 'react-icons/bs';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from "next/navigation";
+import { signIn, useSession } from 'next-auth/react';
 
-import { Input } from "@/app/components/inputs/Input";
+// Importaciones locales
 import AuthSocialButton from './AuthSocialButton';
 import Button from "@/app/components/Button";
+import { Input } from "@/app/components/inputs/Input";
+
+// Importaciones de terceros
 import { toast } from "react-hot-toast";
+
 
 type Variant = 'LOGIN' | 'REGISTER';
 
@@ -21,19 +26,59 @@ export const AuthForm = () => {
     const [variant, setVariant] = useState<Variant>('LOGIN');
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
+    const redirectAuthenticatedUser = useCallback(() => {
         if (session?.status === 'authenticated') {
             router.push('/users')
+            toast.success('¡Bienvenido!')
         }
     }, [session?.status, router]);
 
-    const toggleVariant = useCallback(() => {
-        if (variant === 'LOGIN') {
-            setVariant('REGISTER');
-        } else {
-            setVariant('LOGIN');
-        }
-    }, [variant]);
+    const handleToggleVariant = useCallback(() => {
+        setVariant((prevState) => prevState === 'LOGIN' ? 'REGISTER' : 'LOGIN');
+    }, []);
+
+    const handleLogin = useCallback((data: FieldValues) => {
+        setIsLoading(true);
+
+        signIn('credentials', {
+            ...data,
+            redirect: false
+        })
+            .then((callback) => {
+                if (callback?.error) {
+                    toast.error('Credenciales Inválidas');
+                }
+
+                if (callback?.ok && !callback?.error) {
+                    router.push('/users')
+                }
+            })
+            .finally(() => setIsLoading(false))
+    }, [router]);
+
+    const handleRegistration = useCallback((data: FieldValues) => {
+        setIsLoading(true);
+
+        axios.post('/api/register', data)
+            .then(() => signIn('credentials', data))
+            .then(() => {
+                toast.success('¡Registro exitoso!');
+            })
+            .catch(() => toast.error('Ocurrió un error, inténtelo de nuevo'))
+            .finally(() => setIsLoading(false))
+    }, []);
+
+    const handleSocialAction = useCallback((action: string) => {
+        setIsLoading(true);
+
+        signIn(action, { redirect: false })
+            .then((callback) => {
+                if (callback?.error) {
+                    toast.error('Ingreso Fallido');
+                }
+            })
+            .finally(() => setIsLoading(false));
+    }, []);
 
     const {
         register,
@@ -49,50 +94,18 @@ export const AuthForm = () => {
         }
     });
 
+    useEffect(() => {
+        redirectAuthenticatedUser();
+    }, [redirectAuthenticatedUser]);
+
     const handleFormSubmit: SubmitHandler<FieldValues> = (data) => {
-        setIsLoading(true);
+        if (variant === 'LOGIN') {
+            handleLogin(data);
+        }
 
         if (variant === 'REGISTER') {
-            axios.post('/api/register', data)
-                .then(() => signIn('credentials', data))
-                .catch(() => toast.error('Ocurrio un error!'))
-                .finally(() => setIsLoading(false))
+            handleRegistration(data);
         }
-
-        if (variant === 'LOGIN') {
-            signIn('credentials', {
-                ...data,
-                redirect: false
-            })
-                .then((callback) => {
-                    if (callback?.error) {
-                        toast.error('Credenciales Invalidas');
-                    }
-
-                    if (callback?.ok && !callback?.error) {
-                        toast.success('Bienvenido')
-                        router.push('/users')
-                    }
-                })
-                .finally(() => setIsLoading(false))
-        }
-    }
-
-    const socialAction = (action: string) => {
-        setIsLoading(true);
-
-        signIn(action, { redirect: false })
-            .then((callback) => {
-                if (callback?.error) {
-                    toast.error('Invalid credentials!');
-                }
-
-                if (callback?.ok && !callback?.error) {
-                    toast.success('Ingresaste!')
-                }
-            })
-            .finally(() => setIsLoading(false));
-
     }
 
     return (
@@ -152,11 +165,11 @@ export const AuthForm = () => {
 
                             <AuthSocialButton
                                 icon={BsFacebook}
-                                onClick={() => socialAction('facebook')}
+                                onClick={() => handleSocialAction('facebook')}
                             />
                             <AuthSocialButton
                                 icon={BsGoogle}
-                                onClick={() => socialAction('google')}
+                                onClick={() => handleSocialAction('google')}
                             />
 
                         </div>
@@ -172,7 +185,7 @@ export const AuthForm = () => {
                         {variant === 'LOGIN' ? 'Nuevo en Cachuelos?' : 'Ya tienes una cuenta?'}
                     </div>
                     <div
-                        onClick={toggleVariant}
+                        onClick={handleToggleVariant}
                         className="underline cursor-pointer"
                     >
                         {variant === 'LOGIN' ? 'Crea una cuenta' : 'Ingresa ahora'}
