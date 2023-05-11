@@ -12,7 +12,6 @@ import AuthSocialButton from './AuthSocialButton';
 import Button from "@/app/components/Button";
 import { toast } from "react-hot-toast";
 
-
 type Variant = 'LOGIN' | 'REGISTER';
 
 export const AuthForm = () => {
@@ -50,7 +49,7 @@ export const AuthForm = () => {
         }
     });
 
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const handleFormSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
 
         if (variant === 'REGISTER') {
@@ -99,7 +98,7 @@ export const AuthForm = () => {
     return (
         <div className="mt-7 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
-                <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+                <form className="space-y-6" onSubmit={handleSubmit(handleFormSubmit)}>
                     {variant === 'REGISTER' && (
                         <Input
                             disabled={isLoading}
