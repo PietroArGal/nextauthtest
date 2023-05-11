@@ -97,21 +97,8 @@ export const AuthForm = () => {
     }
 
     return (
-        <div
-            className="
-        mt-7
-        sm:mx-auto
-        sm:w-full
-        sm:max-w-md
-        ">
-            <div className="
-        bg-white
-          px-4
-          py-8
-          shadow
-          sm:rounded-lg
-          sm:px-10
-        ">
+        <div className="mt-7 sm:mx-auto sm:w-full sm:max-w-md">
+            <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
                 <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                     {variant === 'REGISTER' && (
                         <Input
@@ -162,7 +149,6 @@ export const AuthForm = () => {
                             </div>
                         </div>
 
-
                         <div className="mt-6 flex gap-2">
 
                             <AuthSocialButton
@@ -176,21 +162,12 @@ export const AuthForm = () => {
 
                         </div>
 
-
                     </div>
 
                 )}
 
                 <div
-                    className="
-            flex 
-            gap-2 
-            justify-center 
-            text-sm 
-            mt-6 
-            px-2 
-            text-gray-500
-          "
+                    className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500"
                 >
                     <div>
                         {variant === 'LOGIN' ? 'Nuevo en Cachuelos?' : 'Ya tienes una cuenta?'}
@@ -202,7 +179,6 @@ export const AuthForm = () => {
                         {variant === 'LOGIN' ? 'Crea una cuenta' : 'Ingresa ahora'}
                     </div>
                 </div>
-
             </div>
         </div>
     )
