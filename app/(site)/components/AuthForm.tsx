@@ -16,7 +16,6 @@ import { Input } from "@/app/components/inputs/Input";
 // Importaciones de terceros
 import { toast } from "react-hot-toast";
 
-
 type Variant = 'LOGIN' | 'REGISTER';
 
 export const AuthForm = () => {
@@ -148,7 +147,6 @@ export const AuthForm = () => {
                 </form>
 
                 {variant === 'LOGIN' && (
-
                     <div className="mt-6">
                         <div className="relative">
                             <div className="absolute inset-0 flex items-center">
@@ -162,32 +160,17 @@ export const AuthForm = () => {
                         </div>
 
                         <div className="mt-6 flex gap-2">
-
-                            <AuthSocialButton
-                                icon={BsFacebook}
-                                onClick={() => handleSocialAction('facebook')}
-                            />
-                            <AuthSocialButton
-                                icon={BsGoogle}
-                                onClick={() => handleSocialAction('google')}
-                            />
-
+                            <AuthSocialButton icon={BsFacebook} onClick={() => handleSocialAction('facebook')} />
+                            <AuthSocialButton icon={BsGoogle} onClick={() => handleSocialAction('google')} />
                         </div>
-
                     </div>
-
                 )}
 
-                <div
-                    className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500"
-                >
+                <div className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500">
                     <div>
                         {variant === 'LOGIN' ? 'Nuevo en Cachuelos?' : 'Ya tienes una cuenta?'}
                     </div>
-                    <div
-                        onClick={handleToggleVariant}
-                        className="underline cursor-pointer"
-                    >
+                    <div onClick={handleToggleVariant} className="underline cursor-pointer">
                         {variant === 'LOGIN' ? 'Crea una cuenta' : 'Ingresa ahora'}
                     </div>
                 </div>
