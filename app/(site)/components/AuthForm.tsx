@@ -1,6 +1,5 @@
 'use client';
 
-// Importaciones dependencias Next / React
 import axios from "axios";
 import { useCallback, useEffect, useState } from 'react';
 import { BsFacebook, BsGoogle } from 'react-icons/bs';
@@ -8,12 +7,10 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from 'next-auth/react';
 
-// Importaciones locales
 import AuthSocialButton from './AuthSocialButton';
 import Button from "@/app/components/Button";
 import { Input } from "@/app/components/inputs/Input";
 
-// Importaciones de terceros
 import { toast } from "react-hot-toast";
 
 type Variant = 'LOGIN' | 'REGISTER';
