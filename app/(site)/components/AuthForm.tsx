@@ -24,7 +24,7 @@ export const AuthForm = () => {
 
     const redirectAuthenticatedUser = useCallback(() => {
         if (session?.status === 'authenticated') {
-            router.push('/users')
+            router.push('/home')
             toast.success('¡Bienvenido!')
         }
     }, [session?.status, router]);
@@ -46,7 +46,7 @@ export const AuthForm = () => {
                 }
 
                 if (callback?.ok && !callback?.error) {
-                    router.push('/users')
+                    router.push('/home')
                 }
             })
             .finally(() => setIsLoading(false))

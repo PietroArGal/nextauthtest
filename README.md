@@ -8,4 +8,6 @@ npm run dev
 yarn dev
 # or
 pnpm dev
+#pushing prisma db
+npx prisma db push
 ```
