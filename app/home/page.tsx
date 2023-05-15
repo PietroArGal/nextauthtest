@@ -1,8 +1,12 @@
+import HeroSection from "./components/HeroSection";
+import { HomeHeader } from "./components/HomeHeader";
+
 const People = () => {
 
     return (
-        <div className="">
-            <p>Home</p>
+        <div className="bg-white">
+            <HomeHeader />
+            <HeroSection />
         </div>
     );
 };
