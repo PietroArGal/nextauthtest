@@ -1,6 +1,6 @@
 function HeroSection() {
     return (
-        <div className="relative isolate px-4 lg:px-6">
+        <div className="relative isolate px-6 py-6 lg:px-6">
             <div className="mx-auto max-w-3xl py-16 sm:py-24 lg:py-28">
 
                 <div className="hidden sm:mb-8 sm:flex sm:justify-center">
@@ -25,7 +25,7 @@ function HeroSection() {
                             href="#"
                             className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
-                            Buscar Ahora
+                            Buscar Servicios
                         </a>
                         <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
                             ¿Qué es un Cachuelo?
