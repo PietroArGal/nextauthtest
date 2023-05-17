@@ -9,7 +9,7 @@ export const UserProfile = () => {
     return (
         <div>
             {session?.user ? (
-                <span>DNI: {session.user.name}</span>
+                <span>DNI: {session.user.id}</span>
             ) : null}
         </div>
     )
