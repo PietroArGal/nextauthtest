@@ -14,7 +14,7 @@ interface UserProfileProps {
 
 const options = [
     { name: 'Historial De Servicios', description: 'Revisa todos tus servicios solicitados.', href: '#', icon: HiOutlineClipboardList },
-    { name: 'Editar Mis Datos', description: 'Edita tu información personal / foto.', href: '#', icon: HiOutlineIdentification },
+    { name: 'Editar Mis Datos', description: 'Edita tu información personal / foto.', href: '../../configuration', icon: HiOutlineIdentification },
     { name: 'Ingresar como trabajador', description: 'Gana dinero haciendo cachuelos.', href: '#', icon: HiOutlineBriefcase },
 ]
 
@@ -53,7 +53,7 @@ export const HomeHeader: React.FC<UserProfileProps> = ({ maxWords = 2 }) => {
         <header className="bg-white">
             <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1">
-                    <a href="#" className="-m-1.5 p-1.5">
+                    <a href="../../home" className="-m-1.5 p-1.5">
                         <span className="sr-only">Cachuelos</span>
                         <img className="h-8 w-auto" src="https://raw.githubusercontent.com/PietroArGal/cachuelos/main/public/images/logo.png" alt="Cachuelos" />
                     </a>
@@ -78,7 +78,7 @@ export const HomeHeader: React.FC<UserProfileProps> = ({ maxWords = 2 }) => {
                     </a>
 
                     <Popover className="relative">
-                        <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+                        <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">
                             <Avatar img={session?.user?.image ?? ''} />
                             {session?.user ? (
                                 <span>{getShortenedName(session.user.name)}</span>

@@ -1,7 +1,7 @@
 import HeroSection from "./components/HeroSection";
-import { HomeHeader } from "./components/HomeHeader";
+import { HomeHeader } from "../components/headers/HomeHeader";
 
-const People = () => {
+const Home = () => {
 
     return (
         <div className="bg-white">
@@ -11,4 +11,4 @@ const People = () => {
     );
 };
 
-export default People;
+export default Home;

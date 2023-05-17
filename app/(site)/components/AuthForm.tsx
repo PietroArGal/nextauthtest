@@ -85,6 +85,7 @@ export const AuthForm = () => {
     } = useForm<FieldValues>({
         defaultValues: {
             name: '',
+            dni: 0,
             email: '',
             password: ''
         }
