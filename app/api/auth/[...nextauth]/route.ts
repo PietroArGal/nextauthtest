@@ -48,17 +48,25 @@ export const authOptions: AuthOptions = {
           throw new Error("Credenciales Invalidas");
         }
 
-        return user;
+        const token = {
+          dni: user.dni,
+        };
+
+        return {
+          ...user,
+          token,
+        };
       },
     }),
   ],
   debug: false,
   callbacks: {
-    session: ({ session, token }) => ({
+    session: ({ session, token, user }) => ({
       ...session,
       user: {
         ...session.user,
         id: token.sub,
+        dni: token.dni,
       },
     }),
   },
