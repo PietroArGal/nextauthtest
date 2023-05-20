@@ -11,6 +11,7 @@ import AuthSocialButton from './AuthSocialButton';
 import Button from "@/app/components/Button";
 import { Input } from "@/app/components/inputs/Input";
 
+
 import { toast } from "react-hot-toast";
 
 type Variant = 'LOGIN' | 'REGISTER';
@@ -110,14 +111,24 @@ export const AuthForm = () => {
             <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
                 <form className="space-y-6" onSubmit={handleSubmit(handleFormSubmit)}>
                     {variant === 'REGISTER' && (
-                        <Input
-                            disabled={isLoading}
-                            register={register}
-                            errors={errors}
-                            required
-                            id="name"
-                            label="Nombre"
-                        />
+                        <>
+                            <Input
+                                disabled={isLoading}
+                                register={register}
+                                errors={errors}
+                                required
+                                id="name"
+                                label="Nombre" />
+                            <Input
+                                disabled={isLoading}
+                                register={register}
+                                errors={errors}
+                                required
+                                id="dni"
+                                label="Dni"
+                                type="number"
+                            />
+                        </>
                     )}
                     <Input
                         disabled={isLoading}

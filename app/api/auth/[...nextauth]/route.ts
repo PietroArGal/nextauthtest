@@ -48,37 +48,21 @@ export const authOptions: AuthOptions = {
           throw new Error("Credenciales Invalidas");
         }
 
-        const token = {
-          dni: user.dni,
-        };
-
-        return {
-          ...user,
-          token,
-        };
+        return user;
       },
     }),
   ],
-  debug: false,
   callbacks: {
-    /*   session: ({ session, token }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: token.sub,
-      },
-    }), */
-    session: async ({ session, token }) => {
-      if (!token.dni) {
-        const dni = await obtenerDNI(session.user.id);
-        return {
-          ...session,
-          user: {
-            ...session.user,
-            dni: dni,
-          },
-        };
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.dni = user.dni;
       }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.id = token.id;
+      session.user.dni = token.dni;
 
       return session;
     },
@@ -87,10 +71,10 @@ export const authOptions: AuthOptions = {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
   },
+  debug: true,
   secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
-function obtenerDNI(id: any) {}
