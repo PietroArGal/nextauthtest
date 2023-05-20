@@ -61,14 +61,27 @@ export const authOptions: AuthOptions = {
   ],
   debug: false,
   callbacks: {
-    session: ({ session, token, user }) => ({
+    /*   session: ({ session, token }) => ({
       ...session,
       user: {
         ...session.user,
         id: token.sub,
-        dni: token.dni,
       },
-    }),
+    }), */
+    session: async ({ session, token }) => {
+      if (!token.dni) {
+        const dni = await obtenerDNI(session.user.id);
+        return {
+          ...session,
+          user: {
+            ...session.user,
+            dni: dni,
+          },
+        };
+      }
+
+      return session;
+    },
   },
   session: {
     strategy: "jwt",
@@ -80,3 +93,4 @@ export const authOptions: AuthOptions = {
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
+function obtenerDNI(id: any) {}
