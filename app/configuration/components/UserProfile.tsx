@@ -1,23 +1,39 @@
 'use client';
 
-import { useSession } from "next-auth/react";
+import React, { useEffect, useState } from "react";
+import UserData from "./UserData";
 
-export const UserProfile = () => {
+interface User {
+    name: string;
+}
 
-    const { data: session } = useSession();
+function UserProfile() {
+    const [userData, setUserData] = useState<User | null>(null);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const data = await UserData();
+                setUserData(data);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+
+        fetchUserData();
+    }, []);
 
     return (
         <div>
-            {session?.user ? (<span>DNI: {session.user.dni}</span>) : null}
-            <br />
-            {session?.user ? (<span>ID: {session.user.id}</span>) : null}
-            <br />
-            {session?.user ? (<span>Name: {session.user.name}</span>) : null}
-            <br />
-            {session?.user ? (<span>Email: {session.user.email}</span>) : null}
-            <br />
-            {session?.user ? (<span>Image: {session.user.image}</span>) : null}
-            <br />
+            {userData ? (
+                <>
+                    <h1>Nombre: {userData.name}</h1>
+                </>
+            ) : (
+                <p>Cargando datos del usuario...</p>
+            )}
         </div>
-    )
+    );
 }
+
+export default UserProfile;

@@ -20,6 +20,11 @@ const Data = async () => {
     );
 };
 
+/* {session?.user ? (<span>DNI: {session.user.dni}</span>) : null}
+<br />
+{session?.user ? (<span>ID: {session.user.id}</span>) : null}
+<br /> */
+
 export default Data
 
 
